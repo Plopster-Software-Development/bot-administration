@@ -15,15 +15,15 @@
                                 <div class="col-md-4 mb-3">
                                     <label for="validationCustom01">First name</label>
                                     <input type="text" class="form-control" id="validationCustom01" placeholder="First Name" name="firstName" value="Mark" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                    <div class="invalid-feedback">
+                                        Please write your name.
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-md-4 mb-3">
                                     <label for="validationCustom02">Last name</label>
                                     <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" name="lastName" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                    <div class="invalid-feedback">
+                                        Please write your last name.
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-md-4 mb-3">
