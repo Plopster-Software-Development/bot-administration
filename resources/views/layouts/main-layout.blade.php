@@ -14,6 +14,7 @@
 
 <body>
     @include('layouts.components.top-bar')
+    @include('layouts.components.user-nav')
     <div class="page-wrapper">
         @include('layouts.components.navbar')
         <div class="page-content">

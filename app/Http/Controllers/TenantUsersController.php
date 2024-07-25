@@ -20,4 +20,11 @@ class TenantUsersController extends Controller
     {
         dd($request);
     }
+
+    protected function registered(Request $request, $user)
+    {
+        $user->sendEmailVerificationNotification();
+
+        return redirect('')->with('verified', true);
+    }
 }

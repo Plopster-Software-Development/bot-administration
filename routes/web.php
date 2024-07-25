@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\TenantUsersController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes(['verify' => true]);
 
 Route::get('login', [TenantUsersController::class, 'renderLoginView']);
 
