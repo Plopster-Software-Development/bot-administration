@@ -7,6 +7,7 @@ use App\Models\BotCredential;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,7 +41,8 @@ class BotsController extends Controller
 
         $creds = BotCredential::create($params);
 
-        Storage::put("$creds->id.json", $params['gCloudCreds']);
+        $gcloudCreds = Crypt::encryptString($params['gCloudCreds']);
+        Storage::put("$creds->id.json", $gcloudCreds);
 
         return redirect('dashboard/');
     }
