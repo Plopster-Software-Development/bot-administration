@@ -17,6 +17,7 @@ class BotCredential extends Model
         'twilioPhoneNumber',
         'twilioSID',
         'twilioTK',
+        'gCredsCloud'
     ];
 
     /**

@@ -10,6 +10,7 @@
         "laravel/telescope": "^5.1",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
+        "league/flysystem-aws-s3-v3": "^3.28",
         "livewire/livewire": "^3.5",
         "resend/resend-laravel": "^0.14.0"
     },

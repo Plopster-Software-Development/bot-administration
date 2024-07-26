@@ -41,10 +41,13 @@ class BotsController extends Controller
 
         $creds = BotCredential::create($params);
 
-        $gcloudCreds = Crypt::encryptString($params['gCloudCreds']);
-        Storage::put("$creds->id.json", $gcloudCreds);
+        Storage::disk('google-cloud-credentials')->put("$creds->id.json", $params['gCloudCreds']);
 
-        return redirect('dashboard/');
+        $url = env('AWS_URL') . "google-cloud-credentials/9c9e05a7-8153-4c01-91e5-da3fabb58990.json";
+
+        $creds->update(['gCredsCloud' => $url]);
+
+        return redirect('dashboard/')->with('success', 'Bot credentials saved succesfully');
     }
 
     protected function validator(array $data)

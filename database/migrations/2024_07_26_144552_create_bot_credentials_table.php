@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('twilioPhoneNumber')->unique()->index();
             $table->text('twilioSID')->unique();
             $table->text('twilioTK')->unique();
+            $table->string('gCredsCloud')->nullable()->unique();
             $table->timestamps();
 
             $table->foreign('bot_id')->references('id')->on('bots')->onDelete('cascade');
