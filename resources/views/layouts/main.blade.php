@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/animate/animate.css') }}" rel="stylesheet" type="text/css">
 
-    <title>Create User</title>
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -18,7 +23,7 @@
     <div class="page-wrapper">
         @include('layouts.components.navbar')
         <div class="page-content">
-            @yield('page-content')
+            @yield('content')
         </div>
     </div>
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>

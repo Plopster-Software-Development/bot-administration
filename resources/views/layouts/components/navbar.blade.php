@@ -9,12 +9,11 @@
                     <li class="has-submenu">
                         <a href="#">
                             <i class="mdi mdi-monitor"></i>
-                            Dashboard
+                            Tenants
                         </a>
                         <ul class="submenu">
-                            <li><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="index-2.html">Dashboard 2</a></li>
-                            <li><a href="index-3.html">Dashboard 3</a></li>
+                            <li><a href="{{route('tenant-register')}}">Create Tenant</a></li>
+                            <li><a href="index-2.html">List Tenants</a></li>
                         </ul>
                     </li>
 

@@ -13,7 +13,7 @@ class TenantUsersController extends Controller
 
     public function renderRegisterView()
     {
-        return view("components.users.register");
+        return view("components.tenantUsers.register");
     }
 
     public function createUser(Request $request)

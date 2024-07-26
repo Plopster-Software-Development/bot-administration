@@ -1,10 +1,11 @@
 <div class="page-wrapper-img">
     <div class="page-wrapper-img-inner">
         <div class="sidebar-user media">
-            <img src="assets/images/users/user-1.jpg" alt="user" class="rounded-circle img-thumbnail mb-1">
-            <span class="online-icon"><i class="mdi mdi-record text-success"></i></span>
+            <div class="avatar-box thumb-lg align-self-center mr-2 mb-1">
+                <span class="avatar-title rounded-circle" id="user-initials"></span>
+            </div>
             <div class="media-body align-item-center">
-                <h5>Mr. Michael Hill </h5>
+                <h5 id="user-name">{{ Auth::user()->name ?? '' }}</h5>
                 <ul class="list-unstyled list-inline mb-0 mt-2">
                     <li class="list-inline-item">
                         <a href="javascript: void(0);" class=""><i class="mdi mdi-account"></i></a>
@@ -13,7 +14,10 @@
                         <a href="javascript: void(0);" class=""><i class="mdi mdi-settings"></i></a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="javascript: void(0);" class=""><i class="mdi mdi-power"></i></a>
+                        <a href="javascript: void(0);" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="mdi mdi-power"></i></a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -22,16 +26,9 @@
             <div class="col-sm-12">
                 <div class="page-title-box">
                     <div class="float-right align-item-center mt-2">
-                        <button class="btn btn-info px-4 align-self-center report-btn">Create Report</button>
+                        <a class="btn btn-primary px-4 align-self-center report-btn" href="{{ route('register') }}">Create Tenant</a>
                     </div>
-                    <h4 class="page-title mb-2"><i class="mdi mdi-card-outline mr-2"></i>Cards</h4>
-                    <div class="">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Frogetor</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">UI Kit</a></li>
-                            <li class="breadcrumb-item active">Cards</li>
-                        </ol>
-                    </div>
+
                 </div><!--end page title box-->
             </div><!--end col-->
         </div><!--end row-->
