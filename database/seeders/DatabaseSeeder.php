@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\Tenant;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +15,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Tenant::factory(1)->create();
+        User::factory(1)->create(['email' => 'nicolas.estevez@plopster.com.co']);
+        Role::factory(1)->create();
+        Permission::factory(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $user = User::first();
+        $roles = Role::first();
+        $permissions = Permission::all();
+
+        foreach ($permissions as $permission) {
+            $roles->permissions()->attach($permission);
+        }
+
+        $user->roles()->attach($roles);
     }
 }

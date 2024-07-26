@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements MustVerifyEmailContract
 {
     use HasFactory, Notifiable, HasUuids, SoftDeletes;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
