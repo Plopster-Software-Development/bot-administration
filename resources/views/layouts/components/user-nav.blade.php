@@ -26,9 +26,8 @@
             <div class="col-sm-12">
                 <div class="page-title-box">
                     <div class="float-right align-item-center mt-2">
-                        <a class="btn btn-primary px-4 align-self-center report-btn" href="{{ route('register') }}">Create Tenant</a>
+                        <!-- <a class="btn btn-primary px-4 align-self-center report-btn" href="{{ route('user-register') }}">Create Tenant</a> -->
                     </div>
-
                 </div><!--end page title box-->
             </div><!--end col-->
         </div><!--end row-->

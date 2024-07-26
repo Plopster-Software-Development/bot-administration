@@ -9,7 +9,7 @@
                     permissions or else it will not be able to access the system.') }}</p>
                 <div class="card card">
                     <div class="card-body text-dark">
-                        <form class="needs-validation" method="post" action="{{route('register')}}" novalidate>
+                        <form class="needs-validation" method="post" action="{{route('user-register')}}" novalidate>
                             @csrf
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">

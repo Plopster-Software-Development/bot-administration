@@ -33,12 +33,12 @@ Route::post('/email/verification-notification', function (Request $r) {
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/register', [RegisterController::class, 'renderRegistrationForm'])->name('register');
-        Route::post('/register', [RegisterController::class, 'registerTenantUser'])->name('register');
+        Route::get('/register', [RegisterController::class, 'renderRegistrationForm'])->name('user-register');
+        Route::post('/register', [RegisterController::class, 'registerTenantUser'])->name('user-register');
     });
 
     Route::group(['prefix' => 'tenant'], function () {
         Route::get('/register', [RegisterController::class, 'renderTenantRegistrationForm'])->name('tenant-register');
-        Route::post('/register', [RegisterController::class, 'registerTenantUser'])->name('register');
+        Route::post('/register', [RegisterController::class, 'registerTenantUser'])->name('tenant-register');
     });
 });

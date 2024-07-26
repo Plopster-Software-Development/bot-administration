@@ -5,12 +5,13 @@
 
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="index.html" class="logo">
+            <a href="{{route('home')}}" class="logo">
                 <span>
                     <img src="{{asset('assets/images/logo-sm-128.png')}}" alt="logo-small" class="logo-sm">
                 </span>
                 <span>
                     <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo-large" class="logo-lg">
+                    <!-- <h3 class="logo-lg">Bot Dashboard</h3> -->
                 </span>
             </a>
         </div>
@@ -68,7 +69,9 @@
 
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{asset('assets/images/users/user-1.jpg')}}" alt="profile-user" class="rounded-circle" />
+                    <div class="avatar-box thumb-xs align-self-center mr-2 mb-1">
+                        <span class="avatar-title rounded-circle" id="user-initials-nv"></span>
+                    </div>
                     <span class="ml-1 nav-user-name hidden-sm"> <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

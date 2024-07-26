@@ -216,10 +216,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (userNameElement) {
         const initials = getInitials(userNameElement.textContent);
         const initialsElement = document.getElementById('user-initials');
-        if (initialsElement) {
+        const initialsElementNav = document.getElementById('user-initials-nv');
+
+        if (initialsElement && initialsElementNav) {
+            initialsElementNav.textContent = initials;
             initialsElement.textContent = initials;
             const color = hashStringToPastelColor(initials);
             initialsElement.style.backgroundColor = color;
+            initialsElementNav.style.backgroundColor = color;
         }
     }
 });
