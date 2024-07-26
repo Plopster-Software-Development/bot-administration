@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,13 +21,14 @@ class TenantFactory extends Factory
 
         return [
             'name' => fake()->company(),
-            'country' => fake()->country(),
+            'country_id' => Country::all()->random()->id,
             'city' => $city,
             'province' => $city,
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
             'email' => fake()->email(),
-            'taxId' => '123'
+            'taxId' => '123',
+            'contact_name' => fake()->name(),
         ];
     }
 }

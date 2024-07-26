@@ -18,13 +18,14 @@ class Tenant extends Model
      */
     protected $fillable = [
         'name',
-        'country',
+        'country_id',
         'city',
         'province',
         'address',
         'phone',
         'email',
-        'taxId'
+        'taxId',
+        'contact_name'
     ];
 
     public function users()

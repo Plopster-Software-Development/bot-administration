@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('bot_credentials', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('bot_id')->index();
-            $table->string('clientSecret')->unique();
-            $table->string('twilioPhoneNumber')->unique();
-            $table->string('twilioSID')->unique();
-            $table->string('twilioTK')->unique();
+            $table->text('clientSecret')->unique();
+            $table->string('twilioPhoneNumber')->unique()->index();
+            $table->text('twilioSID')->unique();
+            $table->text('twilioTK')->unique();
             $table->timestamps();
 
             $table->foreign('bot_id')->references('id')->on('bots')->onDelete('cascade');

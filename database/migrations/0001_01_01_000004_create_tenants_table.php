@@ -13,16 +13,19 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('country_id')->nullable()->index();
             $table->string('name');
-            $table->string('country');
-            $table->string('city');
-            $table->string('province');
-            $table->string('address');
             $table->string('phone');
             $table->string('email');
-            $table->string('taxId');
+            $table->string('province');
+            $table->string('city');
+            $table->string('address');
+            $table->string('taxId')->nullable();
+            $table->string('contact_name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

@@ -52,19 +52,27 @@ class BotCredential extends Model
     }
 
     /**
+     * Cifrar el gCloudCreds antes de guardar en la base de datos.
+     */
+    public function setGCloudCredsAttribute($value)
+    {
+        $this->attributes['gCloudCreds'] = Crypt::encryptString($value);
+    }
+
+    /**
+     * Descifrar el gCloudCreds al obtenerlo de la base de datos.
+     */
+    public function getGCloudCredsAttribute($value)
+    {
+        return $this->decryptAttribute($value);
+    }
+
+    /**
      * Cifrar el twilioTK antes de guardar en la base de datos.
      */
     public function setTwilioTKAttribute($value)
     {
         $this->attributes['twilioTK'] = Crypt::encryptString($value);
-    }
-
-    /**
-     * Descifrar el twilioTK al obtenerlo de la base de datos.
-     */
-    public function getTwilioTKAttribute($value)
-    {
-        return $this->decryptAttribute($value);
     }
 
     /**

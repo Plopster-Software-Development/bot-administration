@@ -14,7 +14,7 @@ class Bot extends Model
     protected $fillable = [
         'tenant_id',
         'user_id',
-        'name',
+        'name'
     ];
 
     /**
