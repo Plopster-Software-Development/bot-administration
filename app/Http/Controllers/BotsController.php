@@ -43,7 +43,7 @@ class BotsController extends Controller
 
         Storage::disk('google-cloud-credentials')->put("$creds->id.json", $params['gCloudCreds']);
 
-        $url = env('AWS_URL') . "google-cloud-credentials/9c9e05a7-8153-4c01-91e5-da3fabb58990.json";
+        $url = env('AWS_URL') . "google-cloud-credentials/$creds->id.json";
 
         $creds->update(['gCredsCloud' => $url]);
 
