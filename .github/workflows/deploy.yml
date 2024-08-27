@@ -1,0 +1,57 @@
+name: Deploy Laravel to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: "."
+          fetch-depth: 0
+          show-progress: "true"
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/bot-administration-sys:latest -f Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/bot-administration-sys:latest
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_PRIV_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/bot-administration-sys:latest
+            docker stop bot-administration-container || true
+            docker rm bot-administration-container || true
+            docker run -d --name bot-administration-container -p ${{ secrets.CT_PORT }}:80 ${{ secrets.DOCKER_USERNAME }}/bot-administration-sys:latest
+
+            if docker ps | grep bot-administration-container; then
+              echo "Laravel container is running successfully"
+            else
+              echo "Failed to start Laravel container"
+              exit 1
+            fi
+
+      - name: Clean up unused images and containers
+        run: |
+          docker system prune -af
+          docker image prune -a -f

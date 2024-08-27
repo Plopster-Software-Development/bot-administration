@@ -5,8 +5,6 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mt-0 header-title">{{ __('Create New BOT') }}</h4>
-                <!-- <p class="text-muted mb-4 font-13">{{ __('After creating the user you must activate it and give it
-                    permissions or else it will not be able to access the system.') }}</p> -->
                 <div class="card card">
                     <div class="card-body text-dark">
                         <form class="needs-validation" method="post" action="{{route('bot-register-creds')}}"
