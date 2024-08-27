@@ -8,18 +8,14 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progre
 
 FROM php:8.2-fpm-alpine
 
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     curl \
     libfreetype6-dev \
     libjpeg-turbo-dev \
-    libpng-dev \
-    libzip-dev \
-    nginx \
-    supervisor \
-    unzip \
-    zip && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_mysql zip
+    libpng-dev
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pdo pdo_mysql
 
 COPY --from=vendor /app/vendor /var/www/html/vendor
 
