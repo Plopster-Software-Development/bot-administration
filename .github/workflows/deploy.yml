@@ -7,7 +7,7 @@ on:
 
 jobs:
   Deployment:
-    runs-on: [Lnx-29-3]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
         with:
