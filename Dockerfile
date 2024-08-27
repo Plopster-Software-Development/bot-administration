@@ -10,7 +10,8 @@ FROM php:8.2-fpm-alpine
 
 RUN apk update && apk add --no-cache \
     curl \
-    libfreetype6-dev \
+    build-base \
+    freetype-dev \
     libjpeg-turbo-dev \
     libpng-dev
 
