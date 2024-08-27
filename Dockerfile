@@ -1,35 +1,47 @@
-FROM composer:2.7 AS vendor
+FROM php:8.2-apache
 
-WORKDIR /app
+RUN apt-get update && apt-get install -y git zip libpq-dev openssl libgmp-dev libicu-dev libc-client-dev libkrb5-dev
+RUN docker-php-ext-install gmp pdo pdo_pgsql pgsql intl
 
-COPY composer.json composer.lock /app/
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+RUN docker-php-ext-install imap
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+### COPY CONTENT ###
+COPY . /var/www/html/
+WORKDIR /var/www/html/
 
-FROM php:8.2-fpm-alpine
+### TIME ZONE ###
+ENV TZ="America/Bogota"
 
-RUN apk update && apk add --no-cache \
-    curl \
-    build-base \
-    freetype-dev \
-    libjpeg-turbo-dev \
-    libpng-dev
+ENV COMPOSER_ALLOW_SUPERUSER=1
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_mysql
+# RUN composer install
+RUN composer install --optimize-autoloader --no-dev
+RUN composer dump-autoload -o
 
-COPY --from=vendor /app/vendor /var/www/html/vendor
+### APACHE SET ROOT PATH ###
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-COPY . /var/www/html
+RUN chown -R www-data:www-data /var/www /var/www/html/storage
 
-COPY nginx.conf /etc/nginx/nginx.conf
+### PHP SETUP ###
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-WORKDIR /var/www/html
+RUN echo "extension=curl" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=fileinfo" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=gmp" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=mbstring" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=openssl" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=pdo_pgsql" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=pgsql" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=intl" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=imap" > "$PHP_INI_DIR/php.ini"
+RUN echo "extension=soap" > "$PHP_INI_DIR/php.ini"
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN a2enmod rewrite
+RUN service apache2 restart
 
 EXPOSE 80
-
-COPY ./supervisord.conf /etc/supervisord.conf
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

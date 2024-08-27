@@ -1,4 +1,4 @@
-name: Deploy Laravel to VPS
+name: deployment
 
 on:
   push:
@@ -7,21 +7,20 @@ on:
 
 jobs:
   Deployment:
-    runs-on: ubuntu-latest
-
+    runs-on: [Lnx-29-3]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.1.1
         with:
           path: "."
           fetch-depth: 0
           show-progress: "true"
 
-      - name: Create .env file
+      - name: Set Env Secrets
         run: |
-          echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+          touch .env && echo "${ENV_FILE_CONTENT_QA}" > .env
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      - name: Validate Files
+        run: ls -la
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
