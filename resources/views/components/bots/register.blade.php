@@ -5,8 +5,6 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mt-0 header-title">{{ __('Create New BOT') }}</h4>
-                <!-- <p class="text-muted mb-4 font-13">{{ __('After creating the user you must activate it and give it
-                    permissions or else it will not be able to access the system.') }}</p> -->
                 <div class="card card">
                     <div class="card-body text-dark">
                         <form class="needs-validation" method="post" action="{{route('bot-register')}}" novalidate>
@@ -14,17 +12,19 @@
                             <div class="form-row">
                                 <div class="col-md-6 mb-3">
                                     <label for="name">{{ __('Bot Name') }}</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Company Name" name="name" required autocomplete="name">
+                                    <input type="text" class="form-control" id="name" placeholder="Company Name"
+                                        name="name" required autocomplete="name">
                                     <div class="invalid-feedback">
                                         {{ __('Please write the bot name.') }}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="tenant_id">{{ __('Tenant') }}</label>
-                                    <select class="select2 form-control mb-3 custom-select" style="width: 100%; height:36px;" name="tenant_id" id="tenant_id">
+                                    <select class="select2 form-control mb-3 custom-select"
+                                        style="width: 100%; height:36px;" name="tenant_id" id="tenant_id">
                                         <option>Choose a Tenant</option>
                                         @foreach($tenants as $tenant)
-                                        <option value="{{ $tenant->id }}">{{ $tenant->name }}</option>
+                                            <option value="{{ $tenant->id }}">{{ $tenant->name }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">

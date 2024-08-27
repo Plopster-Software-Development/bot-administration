@@ -35,8 +35,7 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="{{route('bot-register')}}">Create a Bot</a></li>
-                            <li><a href="{{route('bot-register-creds')}}">Assign Credentials</a></li>
-                            <li><a href="index-2.html">List Bots</a></li>
+                            <li><a href="{{route('list-bots')}}">List Bots</a></li>
                         </ul>
                     </li>
 

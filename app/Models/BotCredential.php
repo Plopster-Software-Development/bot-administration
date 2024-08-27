@@ -76,6 +76,11 @@ class BotCredential extends Model
         $this->attributes['twilioTK'] = Crypt::encryptString($value);
     }
 
+    public function getTwilioTKAttribute($value)
+    {
+        return $this->decryptAttribute($value);
+    }
+
     /**
      * Descifrar un atributo cifrado.
      *

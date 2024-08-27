@@ -40,4 +40,18 @@ class Bot extends Model
     {
         return $this->hasOne(BotCredential::class);
     }
+
+    /**
+     * Eliminar las credenciales asociadas antes de eliminar el bot.
+     */
+    protected static function booted()
+    {
+        static::deleting(function ($bot) {
+            // Verifica si el bot tiene credenciales asociadas
+            if ($bot->credentials) {
+                // Elimina las credenciales antes de eliminar el bot
+                $bot->credentials->delete();
+            }
+        });
+    }
 }

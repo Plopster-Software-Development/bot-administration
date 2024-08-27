@@ -4,37 +4,33 @@
     <div class="col-lg-6 mx-auto">
         <div class="card">
             <div class="card-body">
-                <h4 class="mt-0 header-title">{{ __('Create New BOT') }}</h4>
-                <!-- <p class="text-muted mb-4 font-13">{{ __('After creating the user you must activate it and give it
-                    permissions or else it will not be able to access the system.') }}</p> -->
+                <h4 class="mt-0 header-title">{{ __('Update Bot Credentials') }}</h4>
                 <div class="card card">
                     <div class="card-body text-dark">
-                        <form class="needs-validation" method="post" action="{{route('bot-register-creds')}}"
-                            novalidate>
+                        <form class="needs-validation" method="post" action="{{route('bot-update-creds')}}" novalidate>
                             @csrf
+                            @method('PUT')
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label for="twilioPhoneNumber">{{ __('Twilio Phone Number') }}</label>
                                     <input type="text" class="form-control" id="twilioPhoneNumber"
-                                        placeholder="Twilio Phone Number" name="twilioPhoneNumber" required>
+                                        placeholder="Twilio Phone Number" name="twilioPhoneNumber"
+                                        value="{{$botCreds->twilioPhoneNumber}}">
                                     <div class="invalid-feedback">
-                                        {{ __('Please write the bot name.') }}
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="twilioSID">{{ __('Twilio SID') }}</label>
                                     <input type="text" class="form-control" id="twilioSID" placeholder="Twilio SID"
-                                        name="twilioSID" required>
-                                    <div class="invalid-feedback">
-                                        {{ __('Please write the bot name.') }}
+                                        name="twilioSID" value="{{$botCreds->twilioSID}}">
+                                    <div class=" invalid-feedback">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="twilioTK">{{ __('Twilio TK') }}</label>
                                     <input type="text" class="form-control" id="twilioTK" placeholder="Twilio TK"
-                                        name="twilioTK" required>
-                                    <div class="invalid-feedback">
-                                        {{ __('Please write the bot name.') }}
+                                        name="twilioTK" value="{{$botCreds->twilioTK}}">
+                                    <div class=" invalid-feedback">
                                     </div>
                                 </div>
                             </div><!--end form-row-->
@@ -42,9 +38,8 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="gCloudCreds">{{ __('GCloud Credentials') }}</label>
                                     <textarea class="form-control" rows="5" id="gCloudCreds"
-                                        placeholder="GCloud Credentials" name="gCloudCreds" required></textarea>
+                                        placeholder="GCloud Credentials" name="gCloudCreds"></textarea>
                                     <div class="invalid-feedback">
-                                        {{ __('Please write the bot name.') }}
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -52,18 +47,11 @@
                                     <select class="select2 form-control mb-3 custom-select"
                                         style="width: 100%; height:36px;" name="bot_id" id="bot_id">
                                         <option>Choose a Bot</option>
-                                        @foreach($bots as $bot)
-                                            @if(!empty($botId) && $bot->id == $botId)
-                                                <option selected value="{{ $bot->id }}">{{ $bot->name }}</option>
-                                            @else
-                                                <option value="{{ $bot->id }}">{{ $bot->name }}</option>
-                                            @endif
-                                        @endforeach
+                                        <option selected value="{{ $botCreds->bot_id }}">{{ $botCreds->bot->name }}
+                                        </option>
                                     </select>
-                                    <div class="invalid-feedback">
-                                        {{ __('Please provide a valid tenant.') }}
-                                    </div>
                                 </div><!--end col-->
+                                <input type="hidden" value="{{$botCreds->id}}" name="id">
                             </div>
                             <input type="submit" class="btn-block btn-primary" style="min-height: 3em;" value="Submit">
                         </form> <!--end form-->
