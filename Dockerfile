@@ -19,6 +19,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # RUN composer install
 RUN composer install --optimize-autoloader --no-dev
 RUN composer dump-autoload -o
+RUN npm install --production
 
 ### APACHE SET ROOT PATH ###
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
