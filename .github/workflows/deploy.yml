@@ -3,7 +3,7 @@ name: deployment
 on:
   push:
     branches:
-      - fix/deploy
+      - main
 
 jobs:
   Deployment:
@@ -17,7 +17,7 @@ jobs:
 
       - name: Set Env Secrets
         run: |
-          echo "${{ secrets.ENV_FILE_CONTENT_QA }}" > .env
+          touch .env && echo "${{ secrets.ENV_FILE_CONTENT_QA }}" > .env
 
       - name: Validate Files
         run: ls -la
