@@ -29,6 +29,7 @@ RUN composer install --optimize-autoloader --no-dev
 
 # Instala dependencias de npm (si es necesario)
 RUN npm install --production
+RUN npm run build
 
 # Configura Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
